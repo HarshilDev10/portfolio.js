@@ -1,15 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { projects } from "../constants";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import "../App.css";
 
 const Projects = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const section = document.getElementById("projects");
+      if (!section) return;
+      const rect = section.getBoundingClientRect();
+      setIsVisible(rect.top < window.innerHeight - 150);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-<section
-  id="projects"
-  className="py-24 px-[12vw] text-white relative overflow-hidden bg-transparent backdrop-blur-sm"
->
-      <div className="text-center mb-16">
+    <section
+      id="projects"
+      className="py-24 px-[12vw] text-white relative overflow-hidden bg-transparent backdrop-blur-sm"
+    >
+      <div className={`text-center mb-16 transition-transform duration-[2000ms] ease-out ${isVisible ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"}`}>
         <h2 className="text-4xl font-bold">Featured Projects</h2>
         <div className="w-32 h-1 bg-blue-700 mx-auto mt-4"></div>
         <p className="text-gray-400 mt-4 text-lg font-semibold">
@@ -19,17 +33,26 @@ const Projects = () => {
       </div>
 
       <div className="grid md:grid-cols-3 gap-10">
-        {projects.map((project) => (
-          <div key={project.id} className="relative group rounded-2xl overflow-hidden">
-            
-<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-32 bg-white/30 rounded-full blur-3xl z-0 animate-blob mix-blend-screen"></div>
+        {projects.map((project, i) => (
+          <div
+            key={project.id}
+            className={`relative group rounded-2xl overflow-hidden transition-all duration-[2000ms] ease-in-out ${
+              isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
+            }`}
+            style={{ transitionDelay: `${i * 0.5}s` }}
+          >
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-32 bg-white/30 rounded-full blur-3xl z-0 animate-blob mix-blend-screen"></div>
 
-<div className="relative bg-black/20 backdrop-blur-lg border border-gray-700 rounded-2xl shadow-xl overflow-hidden transition-all duration-300 z-10">
-              
+            <div className="relative bg-black/20 backdrop-blur-lg border border-gray-700 rounded-2xl shadow-xl overflow-hidden transition-all duration-300 z-10">
               <div className="relative z-10 p-6 flex flex-col justify-between h-full">
                 <div>
                   <div className="relative">
-                    <img loading="lazy" src={project.img} alt={project.title} className="w-full h-48 object-cover rounded-xl" />
+                    <img
+                      loading="lazy"
+                      src={project.img}
+                      alt={project.title}
+                      className="w-full h-48 object-cover rounded-xl"
+                    />
                     {project.featured && (
                       <span className="absolute top-3 right-3 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded">
                         Featured
@@ -37,12 +60,17 @@ const Projects = () => {
                     )}
                   </div>
                   <h3 className="text-2xl font-bold mt-4">{project.title}</h3>
-                  <p className="text-gray-400 text-sm mt-1">{new Date(project.date).toDateString()}</p>
+                  <p className="text-gray-400 text-sm mt-1">
+                        {new Date(project.date).toDateString()}
+                    </p>
                   <p className="text-gray-300 mt-3">{project.desc}</p>
 
                   <div className="flex flex-wrap mt-4 gap-2">
                     {project.tags.map((tag, i) => (
-                      <span key={i} className="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700">
+                      <span
+                        key={i}
+                        className="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700"
+                      >
                         {tag}
                       </span>
                     ))}

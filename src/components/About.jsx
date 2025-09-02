@@ -12,13 +12,16 @@ const About = () => {
   }, []);
 
   return (
-    <section className="relative h-screen flex flex-col bg-transparent justify-center items-center text-center px-4 overflow-hidden">
+    <section
+      id="about"
+      className="relative h-screen flex flex-col bg-transparent justify-center items-center text-center px-4 overflow-hidden"
+    >
       <div className="absolute inset-0 -z-10">
         <div
           className="absolute inset-0 bg-white/5
-          bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),
-              linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)]
-          bg-[size:6rem_4rem]"
+            bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),
+                linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)]
+            bg-[size:6rem_4rem]"
         />
         <div className="absolute inset-0 bg-[radial-gradient(circle_500px_at_50%_200px,#C9EBFF/30,transparent)] animate-pulse-slow" />
       </div>
@@ -41,10 +44,11 @@ const About = () => {
         data-aos="fade-up"
       >
         <TypeAnimation
-          sequence={["React Js Developer", 2000, "Javascript Developer", 2000]}
+          sequence={["Front-end Developer", 2000, "Javascript Developer", 2000]}
           wrapper="span"
           speed={50}
           repeat={Infinity}
+          className="text-white"
         />
       </motion.h2>
 
@@ -53,7 +57,7 @@ const About = () => {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 1, duration: 1.2 }}
-        className="text-lg max-w-xl mb-6 font-poppins text-gray-300"
+        className="text-lg max-w-xl mb-6 font-poppins text-gray-500"
         data-aos="fade-up"
       >
         I am a passionate Web Developer with expertise in HTML, CSS, JavaScript, React Js, Tailwind CSS, and modern web technologies. I enjoy building clean, responsive, and user-friendly applications while constantly exploring new tools to bring creative ideas to life.

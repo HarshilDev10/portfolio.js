@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaCode, FaGamepad, FaPaintBrush, FaDatabase, FaServer, FaGithub } from "react-icons/fa";
 import { SiReact, SiPhp, SiMysql } from "react-icons/si";
+import { animate, stagger } from "motion";
 
 const Areas = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -17,6 +18,17 @@ const Areas = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (isVisible) {
+      // Animate each skill card with stagger
+      animate(
+        ".skill-card",
+        { opacity: [0, 1], y: [50, 0] },
+        { delay: stagger(0.1) }
+      );
+    }
+  }, [isVisible]);
+
   const skills = [
     {
       icon: <SiReact className="text-3xl mb-4" />,
@@ -30,7 +42,6 @@ const Areas = () => {
       description:
         "Experienced in building front-end for web apps using Html, Css, Tailwind CSS, React Js ",
     },
-    
     {
       icon: <FaServer className="text-3xl mb-4" />,
       title: "Databases",
@@ -59,12 +70,11 @@ const Areas = () => {
 
   return (
     <section
-  id="areas"
-  className={`min-h-screen flex flex-col justify-center items-center px-4 md:px-16 py-16
-    transition-all duration-700 ${isVisible ? "opacity-100 blur-0" : "opacity-0 blur-sm"}`}
->
-
-      <h2 className="text-4xl md:text-5xl font-bold text-white mb-12 text-center">
+      id="areas"
+      className={`min-h-screen flex flex-col justify-center items-center px-4 md:px-16 py-16
+        transition-all duration-700 ${isVisible ? "opacity-100 blur-0" : "opacity-0 blur-sm"}`}
+    >
+      <h2 className="text-4xl md:text-5xl text-white mb-24 text-center">
         Areas of My Expertise
       </h2>
 
@@ -72,7 +82,7 @@ const Areas = () => {
         {skills.map((skill, i) => (
           <div
             key={i}
-            className="border p-6 rounded-xl shadow-lg hover:scale-105 transition transform duration-300 bg-white/5"
+            className="skill-card border p-6 rounded-xl shadow-lg hover:scale-105 transition transform duration-300 bg-white/5"
           >
             {skill.icon}
             <h3 className="text-xl font-semibold mb-2 text-white">{skill.title}</h3>
