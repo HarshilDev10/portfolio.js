@@ -47,8 +47,8 @@ export const projects = [
     date: "2025-08-04",
     status: "Completed",
     tags: ["React.js", "Tailwind CSS"],
-    img: "../public/assets/e_learning.png",
-    demo: "https://e-learning-one-sigma.vercel.app/",
+    img: "../public/assets/e-learning.png",
+    demo: "https://e-learning-abc-college.vercel.app/",
     github: "https://github.com/HarshilDev10/E-Learning",
   },
   {
