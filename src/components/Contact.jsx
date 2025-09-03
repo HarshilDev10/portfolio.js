@@ -1,7 +1,23 @@
-import React from "react";
+import React,{useState} from "react";
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaCodepen ,FaEnvelope, FaPhone, FaGlobe } from "react-icons/fa";
 
 const Contact = () => {
+  const [formData, setformData] = useState({
+    name : "",
+    email : "",
+    message : ""
+  });
+
+  const handleForm = (e) => {
+    e.preventDefault();
+    const name = e.target.name;
+    const value = e.target.value;
+
+    setformData((prev)=>{
+      return {...prev,[name]:[value]}
+    })
+  };
+
   return (
     <section
       id="contact"
@@ -66,18 +82,27 @@ const Contact = () => {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       <input
         type="text"
+        name="name"
         placeholder="Name"
+        value={formData.name}
+        onChange={handleForm}
         className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 placeholder-gray-200 text-white focus:outline-none focus:ring-0 focus:ring-blue-600 focus:border-blue-600 transition"
       />
       <input
         type="email"
+        name="email"
         placeholder="Email"
+        value={formData.email}
+        onChange={handleForm}
         className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 placeholder-gray-200 text-white focus:outline-none focus:ring-0 focus:ring-blue-600 focus:border-blue-600 transition"
       />
     </div>
     <textarea
       rows="5"
       placeholder="Message"
+      name="message"
+      value={formData.message}
+      onChange={handleForm}
       className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 placeholder-gray-200 text-white focus:outline-none focus:ring-0 focus:ring-blue-600 focus:border-blue-600 transition"
     />
     <button
