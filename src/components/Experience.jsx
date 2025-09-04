@@ -55,7 +55,7 @@ export default function Experience() {
               <p className="mb-4 text-gray-300">{exp.description}</p>
               <div className="mt-8 mb-8">
   <a
-    href="/certificates/meshdroid.pdf"
+    href="./assets/certificates/meshdroid.pdf"
     target="_blank"
     rel="noopener noreferrer"
     className="px-4 py-2 bg-blue-600 hover:bg-blue-900 hover:text-black text-white rounded-lg transition-colors duration-300"
