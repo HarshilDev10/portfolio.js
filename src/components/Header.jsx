@@ -4,21 +4,12 @@ import { animate, stagger } from "motion";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   useEffect(() => {
     animate(
       ".desktop-nav li",
       { opacity: [0, 1], y: [50, 0] },
-      { delay: stagger(0.35) }
+      { delay: stagger(0.5) }
     );
   }, []);
 
@@ -27,16 +18,13 @@ const Header = () => {
       animate(
         ".mobile-nav li",
         { opacity: [0, 1], y: [50, 0] },
-        { delay: stagger(0.35) }
+        { delay: stagger(0.5) }
       );
     }
   }, [isOpen]);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 w-full z-50 px-6 py-4 flex justify-around items-center transition-all duration-300
-      ${scrolled ? "bg-black/50 backdrop-blur-md" : "bg-transparent"}`}
-    >
+    <nav className="fixed top-0 left-0 w-full z-50 px-6 py-4 flex justify-around items-center bg-black/50 backdrop-blur-md">
       <h1 className="text-xl font-futuralumine tracking-widest">&lt;HP/&gt;</h1>
 
       {/* Desktop Menu */}
@@ -49,7 +37,7 @@ const Header = () => {
 
       {/* Mobile Menu Button */}
       <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-        <FiMenu />
+        <FiMenu size={24} />
       </button>
 
       {/* Mobile Menu */}

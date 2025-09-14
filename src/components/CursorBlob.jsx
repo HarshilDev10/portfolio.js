@@ -1,12 +1,10 @@
-// src/components/CursorBlob.jsx
 import { useEffect, useState, useRef } from "react";
 
 const CursorBlob = () => {
-  const [mousePos, setMousePos] = useState({ x: -100, y: -100 }); // cursor position
-  const [blobPos, setBlobPos] = useState({ x: -100, y: -100 }); // blob position
+  const [mousePos, setMousePos] = useState({ x: -100, y: -100 }); 
+  const [blobPos, setBlobPos] = useState({ x: -100, y: -100 }); 
   const requestRef = useRef();
 
-  // Update cursor position on mouse move
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePos({ x: e.clientX, y: e.clientY });
@@ -15,10 +13,9 @@ const CursorBlob = () => {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // Smoothly interpolate blob position
   const animate = () => {
     setBlobPos((prev) => ({
-      x: prev.x + (mousePos.x - prev.x) * 0.15, // 0.15 = speed factor (smaller = more delay)
+      x: prev.x + (mousePos.x - prev.x) * 0.15, 
       y: prev.y + (mousePos.y - prev.y) * 0.15,
     }));
     requestRef.current = requestAnimationFrame(animate);

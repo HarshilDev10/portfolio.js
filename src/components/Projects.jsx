@@ -1,50 +1,63 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { projects } from "../constants";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
-import "../App.css";
+import { motion } from "framer-motion";
 
 const Projects = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const section = document.getElementById("projects");
-      if (!section) return;
-      const rect = section.getBoundingClientRect();
-      setIsVisible(rect.top < window.innerHeight - 150);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  };
 
   return (
     <section
       id="projects"
       className="py-24 px-[12vw] text-white relative overflow-hidden bg-transparent backdrop-blur-sm"
     >
-      <div className={`text-center mb-16 transition-transform duration-[2000ms] ease-out ${isVisible ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"}`}>
+      {/* Section Header */}
+      <motion.div
+        className="text-center mb-16"
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1 }}
+      >
         <h2 className="text-4xl font-bold">Featured Projects</h2>
         <div className="w-32 h-1 bg-blue-700 mx-auto mt-4"></div>
         <p className="text-gray-400 mt-4 text-lg font-semibold">
-          Explore some of my most innovative and impactful projects that
-          showcase my skills in modern web development.
+          Explore some of my most innovative and impactful projects that showcase my skills in modern web development.
         </p>
-      </div>
+      </motion.div>
 
-      <div className="grid md:grid-cols-3 gap-10">
-        {projects.map((project, i) => (
-          <div
+      {/* Projects Grid */}
+      <motion.div
+        className="grid md:grid-cols-3 gap-10"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
+        {projects.map((project) => (
+          <motion.div
             key={project.id}
-            className={`relative group rounded-2xl overflow-hidden transition-all duration-[2000ms] ease-in-out ${
-              isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
-            }`}
-            style={{ transitionDelay: `${i * 0.5}s` }}
+            variants={cardVariants}
+            className="relative group rounded-2xl overflow-hidden transition-all duration-300"
           >
+            {/* Background Blob */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-32 bg-white/30 rounded-full blur-3xl z-0 animate-blob mix-blend-screen"></div>
 
+            {/* Card */}
             <div className="relative bg-black/20 backdrop-blur-lg border border-gray-700 rounded-2xl shadow-xl overflow-hidden transition-all duration-300 z-10">
               <div className="relative z-10 p-6 flex flex-col justify-between h-full">
+                {/* Image & Title */}
                 <div>
                   <div className="relative">
                     <img
@@ -59,12 +72,14 @@ const Projects = () => {
                       </span>
                     )}
                   </div>
+
                   <h3 className="text-2xl font-bold mt-4">{project.title}</h3>
                   <p className="text-gray-400 text-sm mt-1">
-                        {new Date(project.date).toDateString()}
-                    </p>
+                    {new Date(project.date).toDateString()}
+                  </p>
                   <p className="text-gray-300 mt-3">{project.desc}</p>
 
+                  {/* Tags */}
                   <div className="flex flex-wrap mt-4 gap-2">
                     {project.tags.map((tag, i) => (
                       <span
@@ -77,6 +92,7 @@ const Projects = () => {
                   </div>
                 </div>
 
+                {/* Links */}
                 <div className="flex justify-between mt-6">
                   <a
                     href={project.demo}
@@ -97,10 +113,11 @@ const Projects = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
+      {/* View All Projects */}
       <div className="text-center mt-12">
         <a
           href="/projects"
