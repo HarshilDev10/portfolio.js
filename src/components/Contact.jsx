@@ -1,5 +1,6 @@
 import React,{useState} from "react";
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaCodepen ,FaEnvelope, FaPhone, FaGlobe } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 const Contact = () => {
   const [formData, setformData] = useState({
@@ -120,7 +121,7 @@ const Contact = () => {
         <div className="space-y-6">
           <h3 className="text-3xl font-bold">Let’s work together today!</h3>
           <button className="px-6 py-3 bg-blue-500 text-black font-semibold rounded-md hover:bg-blue-600 transition">
-            Start project →
+            <Link to="/projects">Start a Project</Link>
           </button>
         </div>
 
@@ -151,3 +152,4 @@ const Contact = () => {
 };
 
 export default Contact;
+
